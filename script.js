@@ -57,7 +57,7 @@ interactiveElements.forEach(el => {
     el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
 });
 
-// Liquid Glass Navbar Dock
+// Dynamic Sliding Pill Navbar Indicator
 const navItems = document.querySelectorAll('.nav-item');
 const navDock = document.getElementById('nav-dock');
 
@@ -76,15 +76,15 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 navItems.forEach(item => {
-    item.addEventListener('click', (e) => {
+    item.addEventListener('click', () => {
         navItems.forEach(nav => nav.classList.remove('active'));
         item.classList.add('active');
         updateDockPosition(item);
     });
 });
 
-// Penanganan perpindahan halaman aktif berdasarkan Scroll (Tanpa Contacts)
-const sections = document.querySelectorAll('#hero, #about, #skills, #experience, #projects, footer');
+// Penanganan perpindahan halaman aktif berdasarkan Scroll
+const sections = document.querySelectorAll('#home, #about, #skills, #experience, #projects, footer');
 window.addEventListener('scroll', () => {
     let currentSectionId = '';
     const scrollPos = window.scrollY + 200;
@@ -111,7 +111,7 @@ window.addEventListener('scroll', () => {
         });
     }
 
-    // --- LOGIKA TIMELINE SCROLL PROGRESS & ACTIVE DOTS ---
+    // LOGIKA TIMELINE SCROLL PROGRESS & ACTIVE DOTS
     const timelineSection = document.getElementById('experience');
     const progressLine = document.getElementById('timeline-progress');
     const timelineDots = document.querySelectorAll('.timeline-dot');
@@ -235,8 +235,10 @@ function triggerTypewriter(element) {
     typeChar();
 }
 
+// Intersection Observer untuk efek Blur to Clear saat di-scroll
 const observerOptions = {
     root: null,
+    rootMargin: '0px 0px -100px 0px',
     threshold: 0.15
 };
 
@@ -292,6 +294,9 @@ themeToggle.addEventListener('click', () => {
             sunIcon.style.display = 'block';
             moonIcon.style.display = 'none';
         }
+        // Update ulang posisi dock saat ganti tema
+        const activeItem = document.querySelector('.nav-item.active');
+        if (activeItem) updateDockPosition(activeItem);
     }, 300);
 
     setTimeout(() => {

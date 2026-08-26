@@ -10,8 +10,11 @@
     --primary-btn-bg: #171717;
     --primary-btn-text: #FFFFFF;
     --outline-border: #D4D4D4;
-    --glass-dock-bg: rgba(23, 23, 23, 0.06);
-    --glass-dock-border: rgba(255, 255, 255, 0.4);
+    
+    /* Variabel Khusus Indicator Slider Meluncur Navbar */
+    --dock-bg: #171717;
+    --dock-active-text: #FFFFFF;
+
     --cursor-glow-bg: rgba(0, 0, 0, 0.04);
     --cursor-glow-border: rgba(0, 0, 0, 0.1);
     
@@ -34,12 +37,15 @@
     --primary-btn-bg: #f8fafc;
     --primary-btn-text: #0f172a;
     --outline-border: #475569;
-    --glass-dock-bg: rgba(248, 250, 252, 0.12);
-    --glass-dock-border: rgba(255, 255, 255, 0.1);
+    
+    /* Indicator Slider Mode Gelap */
+    --dock-bg: #f8fafc;
+    --dock-active-text: #0f172a;
+
     --cursor-glow-bg: rgba(255, 255, 255, 0.06);
     --cursor-glow-border: rgba(255, 255, 255, 0.15);
 
-    /* Variabel Shadow Mode Gelap (Lebih dalam/soft glow) */
+    /* Variabel Shadow Mode Gelap */
     --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
     --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
     --shadow-lg: 0 20px 35px -5px rgba(0, 0, 0, 0.4), 0 10px 15px -5px rgba(0, 0, 0, 0.3);
@@ -158,7 +164,7 @@ body {
     transform: translateY(0);
 }
 
-/* Navbar dengan Shadow Menarik */
+/* Navbar dengan Dynamic Sliding Pill */
 .navbar {
     position: fixed;
     top: 16px;
@@ -201,7 +207,7 @@ body {
     color: var(--text-muted); 
     padding: 6px 10px;
     border-radius: 99px;
-    transition: color 0.3s ease; 
+    transition: color 0.25s ease; 
     flex: 1; 
     text-align: center; 
     white-space: nowrap;
@@ -209,24 +215,27 @@ body {
     font-weight: 600;
 }
 
-.nav-links a:hover, .nav-links a.active { 
+.nav-links a:hover { 
     color: var(--text-color); 
 }
 
-/* Liquid Glass Dock dengan Shadow Berlapis */
+/* Teks Tombol Aktif Di Atas Indikator Slider */
+.nav-links a.active {
+    color: var(--dock-active-text) !important;
+    font-weight: 700;
+}
+
+/* Solid & High-Contrast Sliding Pill Indicator */
 .nav-dock {
     position: absolute;
-    top: 4px;
-    bottom: 4px;
+    top: 0;
+    bottom: 0;
     left: 0;
     width: 0;
-    background: var(--glass-dock-bg);
-    border: 1px solid var(--glass-dock-border);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: var(--dock-bg);
     border-radius: 99px;
-    box-shadow: inset 0 1px 1px rgba(255,255,255,0.4), 0 4px 15px rgba(0,0,0,0.08);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), width 0.35s cubic-bezier(0.25, 1, 0.5, 1);
     z-index: 1;
     pointer-events: none;
 }
@@ -266,7 +275,7 @@ body {
 .hero-content p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 24px; }
 .hero-buttons { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
 
-/* Tombol Utama dengan Shadow Elegan */
+/* Tombol Utama */
 .btn-primary { 
     background: var(--primary-btn-bg); 
     color: var(--primary-btn-text); 
@@ -284,7 +293,7 @@ body {
     opacity: 0.95; 
 }
 
-/* Tombol Outline dengan Shadow Halus */
+/* Tombol Outline */
 .btn-outline { 
     border: 1px solid var(--outline-border); 
     color: var(--text-color); 
@@ -312,7 +321,7 @@ body {
 .silhouette-icon { color: var(--text-muted); transition: color 0.2s ease, transform 0.2s ease; }
 .silhouette-icon:hover { color: var(--text-color); transform: translateY(-2px); }
 
-/* Profile & Badges dengan Drop Shadow */
+/* Profile & Badges */
 .hero-image-container { display: flex; justify-content: center; position: relative; height: 350px; align-items: center; }
 .profile-card { width: 260px; height: 260px; background: var(--card-bg); border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem; border: 4px solid var(--card-bg); box-shadow: var(--shadow-lg); position: relative; }
 .profile-card img.profile-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
@@ -354,7 +363,7 @@ body {
 .section-header h2 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; color: var(--text-color); min-height: 2.4rem; }
 .section-header p { font-size: 0.9rem; color: var(--text-muted); }
 
-/* Khusus Tech Stack / Skills agar tidak bocor ke bawah */
+/* Khusus Tech Stack / Skills */
 #skills.section {
     min-height: 100vh;
     display: flex;
@@ -371,7 +380,7 @@ body {
 
 .about-text-boxes { display: flex; flex-direction: column; gap: 16px; }
 
-/* Card Universal dengan Shadow */
+/* Card Universal */
 .card { 
     background: var(--card-bg); 
     border: 1px solid var(--border-color); 
@@ -403,7 +412,6 @@ body {
     }
 }
 
-/* Kartu Kategori Skill */
 .skill-category-card {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -448,7 +456,7 @@ body {
 .marquee-track span { font-size: 1.8rem; font-weight: 800; color: var(--outline-border); text-transform: uppercase; letter-spacing: 2px; padding-right: 20px; }
 @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
 
-/* Projects Grid dengan Efek Hover & Shadow Menonjol */
+/* Projects Grid */
 .projects-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
 @media(min-width: 768px) { .projects-grid { grid-template-columns: repeat(3, 1fr); } }
 .project-card { 
@@ -472,7 +480,7 @@ body {
 
 footer { text-align: center; padding: 40px; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border-color); scroll-margin-top: 90px; }
 
-/* Styling Preview Gambar Proyek */
+/* Preview Gambar Proyek */
 .project-img-container {
     height: 160px;
     background: var(--outline-border);
@@ -533,7 +541,6 @@ footer { text-align: center; padding: 40px; font-size: 0.85rem; color: var(--tex
     padding: 20px 0;
 }
 
-/* Garis Dasar */
 .timeline-line {
     position: absolute;
     top: 0;
@@ -545,7 +552,6 @@ footer { text-align: center; padding: 40px; font-size: 0.85rem; color: var(--tex
     border-radius: 3px;
 }
 
-/* Garis yang Merambat Mengikuti Scroll */
 .timeline-progress-line {
     position: absolute;
     top: 0;
@@ -637,7 +643,6 @@ footer { text-align: center; padding: 40px; font-size: 0.85rem; color: var(--tex
     border: 1px solid var(--border-color);
 }
 
-/* Titik Bulat Timeline dengan Efek Bayangan / Glow */
 .timeline-dot {
     position: absolute;
     left: 50%;
@@ -652,7 +657,6 @@ footer { text-align: center; padding: 40px; font-size: 0.85rem; color: var(--tex
     transition: all 0.3s ease;
 }
 
-/* Efek saat titik terlewati dan aktif */
 .timeline-dot.active {
     border-color: var(--text-color);
     background-color: var(--text-color);
@@ -677,4 +681,20 @@ footer { text-align: center; padding: 40px; font-size: 0.85rem; color: var(--tex
     .timeline-dot {
         left: 20px;
     }
+}
+/* Scroll Reveal & Focus Blur Effect */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(10px); /* Efek awal teks kabur/blur */
+    will-change: transform, opacity, filter;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px); /* Kembali fokus tajam 100% */
 }
