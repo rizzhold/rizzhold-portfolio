@@ -83,8 +83,8 @@ navItems.forEach(item => {
     });
 });
 
-// Penanganan perpindahan halaman aktif berdasarkan Scroll
-const sections = document.querySelectorAll('section, footer');
+// Penanganan perpindahan halaman aktif berdasarkan Scroll (Tanpa Contacts)
+const sections = document.querySelectorAll('#hero, #about, #skills, #experience, #projects, footer');
 window.addEventListener('scroll', () => {
     let currentSectionId = '';
     const scrollPos = window.scrollY + 200;
@@ -107,6 +107,32 @@ window.addEventListener('scroll', () => {
                     item.classList.add('active');
                     updateDockPosition(item);
                 }
+            }
+        });
+    }
+
+    // --- LOGIKA TIMELINE SCROLL PROGRESS & ACTIVE DOTS ---
+    const timelineSection = document.getElementById('experience');
+    const progressLine = document.getElementById('timeline-progress');
+    const timelineDots = document.querySelectorAll('.timeline-dot');
+
+    if (timelineSection && progressLine) {
+        const rect = timelineSection.getBoundingClientRect();
+        const sectionHeight = timelineSection.offsetHeight;
+        const windowHeight = window.innerHeight;
+
+        let scrollScored = windowHeight - rect.top;
+        let percentage = (scrollScored / sectionHeight) * 100;
+
+        percentage = Math.max(0, Math.min(100, percentage));
+        progressLine.style.height = `${percentage}%`;
+
+        timelineDots.forEach(dot => {
+            const dotRect = dot.getBoundingClientRect();
+            if (dotRect.top < windowHeight * 0.75) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
             }
         });
     }

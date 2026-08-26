@@ -117,37 +117,43 @@
                     <h3>My Approach</h3>
                     <p>Saya mengutamakan clean code, desain responsif, dan pengalaman pengguna yang intuitif dalam setiap proyek yang saya kerjakan.</p>
                 </div>
-                <div class="card details-grid-4">
-                    <div>
-                        <span class="label">Full Name</span>
-                        <span class="value">Muhamad Fatur Rahman</span>
+                <div class="card details-card">
+                    <div class="details-header">
+                        <h3 class="personal-details-title">Personal Details</h3>
+                        <h3></h3>
                     </div>
-                    <div>
-                        <span class="label">Place of Birth</span>
-                        <span class="value">Bogor, Indonesia (15y.o)</span>
-                    </div>
-                    <div>
-                        <span class="label">School</span>
-                        <span class="value">SMK Informatika dan Telekomunikasi</span>
-                    </div>
-                    <div>
-                        <span class="label">Class</span>
-                        <span class="value">X RPL 2 / Generations 29</span>
-                    </div>
-                    <div>
-                        <span class="label">Organization</span>
-                        <span class="value">Duta Literasi</span>
-                    </div>
-                    <div>
-                        <span class="label">Extracurricular</span>
-                        <span class="value">Japanese Indonesia Club (JIC) & Pramuka</span>
+                    <div class="details-grid-4">
+                        <div>
+                            <span class="label">Full Name</span>
+                            <span class="value">Muhamad Fatur Rahman</span>
+                        </div>
+                        <div>
+                            <span class="label">Place of Birth</span>
+                            <span class="value">Bogor, Indonesia (15y.o)</span>
+                        </div>
+                        <div>
+                            <span class="label">School</span>
+                            <span class="value">SMK Informatika dan Telekomunikasi</span>
+                        </div>
+                        <div>
+                            <span class="label">Class</span>
+                            <span class="value">X RPL 2 / Generations 29</span>
+                        </div>
+                        <div>
+                            <span class="label">Organization</span>
+                            <span class="value">Duta Literasi</span>
+                        </div>
+                        <div>
+                            <span class="label">Extracurricular</span>
+                            <span class="value">Japanese Indonesia Club (JIC) & Pramuka</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- My Tech Stack Section (Diperbarui & Ditambahkan Kembali) -->
+    <!-- My Tech Stack Section -->
     <section id="skills" class="section reveal">
         <div class="section-header">
             <h2 class="typewriter-title" data-title="My Tech Stack"></h2>
@@ -191,15 +197,19 @@
         </div>
     </div>
 
-    <!-- Work Experience Section (Diperbarui & Ditambahkan Kembali) -->
+    <!-- Work Experience Section (Zig-Zag dengan Garis Merambat) -->
     <section id="experience" class="section reveal">
         <div class="section-header">
             <h2 class="typewriter-title" data-title="Work Experience"></h2>
             <p>Jejak pengalaman, kolaborasi, dan eksplorasi proyek.</p>
         </div>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="card">
+        <div class="timeline-zigzag" id="timeline-container">
+            <div class="timeline-line"></div>
+            <div class="timeline-progress-line" id="timeline-progress"></div>
+            
+            <!-- Item 1 (Kiri) -->
+            <div class="timeline-row left">
+                <div class="timeline-content card">
                     <span class="year">2025 - Present</span>
                     <h3>Web Development & Portfolio Creator</h3>
                     <p class="company">Independent / School Projects</p>
@@ -208,9 +218,13 @@
                         <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Git</span>
                     </div>
                 </div>
+                <div class="timeline-dot"></div>
             </div>
-            <div class="timeline-item">
-                <div class="card">
+
+            <!-- Item 2 (Kanan) -->
+            <div class="timeline-row right">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content card">
                     <span class="year">2024 - Present</span>
                     <h3>Android Custom ROM Porter & Enthusiast</h3>
                     <p class="company">Open Source Community</p>
