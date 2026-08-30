@@ -14,9 +14,6 @@
     /* Variabel Khusus Indicator Slider Meluncur Navbar */
     --dock-bg: #171717;
     --dock-active-text: #FFFFFF;
-
-    --cursor-glow-bg: rgba(0, 0, 0, 0.04);
-    --cursor-glow-border: rgba(0, 0, 0, 0.1);
     
     /* Variabel Shadow Khusus */
     --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
@@ -42,9 +39,6 @@
     --dock-bg: #f8fafc;
     --dock-active-text: #0f172a;
 
-    --cursor-glow-bg: rgba(255, 255, 255, 0.06);
-    --cursor-glow-border: rgba(255, 255, 255, 0.15);
-
     /* Variabel Shadow Mode Gelap */
     --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
     --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
@@ -59,29 +53,7 @@
     box-sizing: border-box;
     font-family: 'Plus Jakarta Sans', sans-serif;
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Custom Cursor */
-.custom-cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 36px;
-    height: 36px;
-    background: var(--cursor-glow-bg);
-    border: 1px solid var(--cursor-glow-border);
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
-    z-index: 9999999;
-}
-
-.custom-cursor.hovered {
-    width: 60px;
-    height: 60px;
-    background: var(--cursor-glow-bg);
-    border-color: var(--text-muted);
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -153,15 +125,20 @@ body {
     transition: transform 3s ease; 
 }
 
-/* Scroll Reveal */
+/* Scroll Reveal & Focus Blur Effect */
 .reveal {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transform: translateY(40px);
+    filter: blur(10px);
+    will-change: transform, opacity, filter;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal.active {
     opacity: 1;
     transform: translateY(0);
+    filter: blur(0px);
 }
 
 /* Navbar dengan Dynamic Sliding Pill */
@@ -219,13 +196,11 @@ body {
     color: var(--text-color); 
 }
 
-/* Teks Tombol Aktif Di Atas Indikator Slider */
 .nav-links a.active {
     color: var(--dock-active-text) !important;
     font-weight: 700;
 }
 
-/* Solid & High-Contrast Sliding Pill Indicator */
 .nav-dock {
     position: absolute;
     top: 0;
@@ -275,7 +250,6 @@ body {
 .hero-content p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 24px; }
 .hero-buttons { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
 
-/* Tombol Utama */
 .btn-primary { 
     background: var(--primary-btn-bg); 
     color: var(--primary-btn-text); 
@@ -293,9 +267,9 @@ body {
     opacity: 0.95; 
 }
 
-/* Tombol Outline */
 .btn-outline { 
     border: 1px solid var(--outline-border); 
+    background: var(--card-bg);
     color: var(--text-color); 
     padding: 12px 24px; 
     border-radius: 12px; 
@@ -307,6 +281,7 @@ body {
     display: inline-flex; 
     align-items: center; 
     gap: 8px; 
+    cursor: pointer;
 }
 .btn-outline:hover { 
     background: var(--tag-bg); 
@@ -363,7 +338,6 @@ body {
 .section-header h2 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; color: var(--text-color); min-height: 2.4rem; }
 .section-header p { font-size: 0.9rem; color: var(--text-muted); }
 
-/* Khusus Tech Stack / Skills */
 #skills.section {
     min-height: 100vh;
     display: flex;
@@ -380,7 +354,6 @@ body {
 
 .about-text-boxes { display: flex; flex-direction: column; gap: 16px; }
 
-/* Card Universal */
 .card { 
     background: var(--card-bg); 
     border: 1px solid var(--border-color); 
@@ -399,7 +372,7 @@ body {
 .label { font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 2px; }
 .value { font-size: 0.85rem; font-weight: 600; color: var(--text-color); }
 
-/* Tech Stack / Skills Section Styles */
+/* Skills Section Styles */
 .skills-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -457,59 +430,9 @@ body {
 @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
 
 /* Projects Grid */
-.projects-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
-@media(min-width: 768px) { .projects-grid { grid-template-columns: repeat(3, 1fr); } }
-.project-card { 
-    background: var(--card-bg); 
-    border: 1px solid var(--border-color); 
-    border-radius: 20px; 
-    overflow: hidden; 
-    display: flex; 
-    flex-direction: column; 
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.3s ease, box-shadow 0.3s ease; 
-}
-.project-card:hover { 
-    transform: translateY(-8px); 
-    box-shadow: var(--shadow-lg);
-}
-.project-info { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
-.project-info h3 { font-size: 0.95rem; margin-bottom: 6px; font-weight: 700; color: var(--text-color); }
-.project-info p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; flex-grow: 1; }
-.project-info a { font-size: 0.75rem; font-weight: 700; text-decoration: none; color: var(--text-color); text-transform: uppercase; }
 
 footer { text-align: center; padding: 40px; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border-color); scroll-margin-top: 90px; }
 
-/* Preview Gambar Proyek */
-.project-img-container {
-    height: 160px;
-    background: var(--outline-border);
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.project-preview-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.project-img-fallback {
-    position: absolute;
-    inset: 0;
-    background: var(--outline-border);
-    color: var(--card-bg);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    font-weight: 700;
-}
-.project-img-fallback.purple {
-    background: #581c87;
-    color: #e9d5ff;
-}
 .details-card {
     position: relative;
 }
@@ -663,7 +586,6 @@ footer { text-align: center; padding: 40px; font-size: 0.85rem; color: var(--tex
     box-shadow: 0 0 12px var(--text-muted);
 }
 
-/* Responsif untuk Layar HP */
 @media screen and (max-width: 768px) {
     .timeline-line,
     .timeline-progress-line {
@@ -682,19 +604,107 @@ footer { text-align: center; padding: 40px; font-size: 0.85rem; color: var(--tex
         left: 20px;
     }
 }
-/* Scroll Reveal & Focus Blur Effect */
-.reveal {
+
+/* ========================================== */
+/* MODAL POP-UP STYLING (ABOUT PORTFOLIO)     */
+/* ========================================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999;
     opacity: 0;
-    transform: translateY(40px);
-    filter: blur(10px); /* Efek awal teks kabur/blur */
-    will-change: transform, opacity, filter;
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.reveal.active {
+.modal-overlay.active {
     opacity: 1;
-    transform: translateY(0);
-    filter: blur(0px); /* Kembali fokus tajam 100% */
+    visibility: visible;
 }
+
+.modal-container {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    width: 90%;
+    max-width: 500px;
+    border-radius: 24px;
+    padding: 24px 28px;
+    box-shadow: var(--shadow-lg);
+    transform: translateY(20px) scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.active .modal-container {
+    transform: translateY(0) scale(1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+}
+
+.modal-header h3 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text-color);
+}
+
+.modal-close-btn {
+    background: var(--tag-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    font-size: 1.2rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    transform: scale(1.1);
+    background: var(--outline-border);
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 65vh;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.modal-section h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 6px;
+}
+
+.modal-section p, .modal-section li {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.modal-section ul {
+    list-style-type: disc;
+    padding-left: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+

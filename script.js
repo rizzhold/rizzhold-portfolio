@@ -44,19 +44,6 @@ window.addEventListener('load', () => {
     }, 3200);
 });
 
-// Custom Cursor Follower
-const cursor = document.getElementById('custom-cursor');
-window.addEventListener('mousemove', (e) => {
-    cursor.style.left = `${e.clientX}px`;
-    cursor.style.top = `${e.clientY}px`;
-});
-
-const interactiveElements = document.querySelectorAll('a, button, .card, .project-card, .badge-card');
-interactiveElements.forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
-});
-
 // Dynamic Sliding Pill Navbar Indicator
 const navItems = document.querySelectorAll('.nav-item');
 const navDock = document.getElementById('nav-dock');
@@ -83,8 +70,8 @@ navItems.forEach(item => {
     });
 });
 
-// Penanganan perpindahan halaman aktif berdasarkan Scroll
-const sections = document.querySelectorAll('#home, #about, #skills, #experience, #projects, footer');
+// Penanganan perpindahan halaman aktif berdasarkan Scroll (Tanpa Contacts)
+const sections = document.querySelectorAll('#home, #about, #skills, #experience, #projects');
 window.addEventListener('scroll', () => {
     let currentSectionId = '';
     const scrollPos = window.scrollY + 200;
@@ -294,7 +281,6 @@ themeToggle.addEventListener('click', () => {
             sunIcon.style.display = 'block';
             moonIcon.style.display = 'none';
         }
-        // Update ulang posisi dock saat ganti tema
         const activeItem = document.querySelector('.nav-item.active');
         if (activeItem) updateDockPosition(activeItem);
     }, 300);
@@ -303,3 +289,31 @@ themeToggle.addEventListener('click', () => {
         ripple.remove();
     }, 650);
 });
+
+// LOGIKA MODAL POP-UP ABOUT PORTFOLIO
+const aboutPortfolioBtn = document.getElementById('about-portfolio-btn');
+const portfolioModal = document.getElementById('portfolio-modal');
+const modalCloseBtn = document.getElementById('modal-close-btn');
+
+if (aboutPortfolioBtn && portfolioModal && modalCloseBtn) {
+    aboutPortfolioBtn.addEventListener('click', () => {
+        portfolioModal.classList.add('active');
+    });
+
+    modalCloseBtn.addEventListener('click', () => {
+        portfolioModal.classList.remove('active');
+    });
+
+    // Tutup modal jika mengklik area luar kontainer (overlay)
+    portfolioModal.addEventListener('click', (e) => {
+        if (e.target === portfolioModal) {
+            portfolioModal.classList.remove('active');
+        }
+    });
+}
+// ========================================================= */
+// LOGIKA INTERAKTIF KARTU PROYEK (VIEW MORE) telah dipindahkan */
+// ke pages/projects/projects-render.js, karena card sekarang   */
+// di-generate secara dinamis dari PROJECT_DATA, bukan statis   */
+// di HTML lagi.                                                */
+// ========================================================= */

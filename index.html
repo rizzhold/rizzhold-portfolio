@@ -10,11 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/data/pages/css/projects.css">
 </head>
 <body>
-
-    <!-- Custom Cursor -->
-    <div id="custom-cursor" class="custom-cursor"></div>
 
     <!-- Loading Screen -->
     <div id="loader" class="loader-screen">
@@ -25,7 +23,7 @@
         </div>
     </div>
 
-    <!-- Floating Navbar dengan Sliding Pill Indicator -->
+    <!-- Floating Navbar dengan Sliding Pill Indicator (Tanpa Menu Contacts) -->
     <header class="navbar">
         <a href="#home" class="nav-logo">Portfolio.</a>
         <nav class="nav-links" id="nav-links-container">
@@ -36,7 +34,6 @@
             <a href="#skills" class="nav-item" data-target="skills">Skills</a>
             <a href="#experience" class="nav-item" data-target="experience">Experience</a>
             <a href="#projects" class="nav-item" data-target="projects">Projects</a>
-            <a href="#contacts" class="nav-item" data-target="contacts">Contacts</a>
         </nav>
         <button id="theme-toggle" class="theme-btn" aria-label="Ganti Tema">
             <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -50,13 +47,14 @@
             <div class="hero-content">
                 <h1>Hi, I'm Fatur <span class="aka">a.k.a rizzhold</span></h1>
                 <h2 class="hero-subtitle"><span id="typing-text"></span><span class="cursor">|</span></h2>
-                <p>Halo! Perkenalkan, Nama saya Muhamad Fatur Rahman. Hobi saya adalah Porting OEM ROM, Menulis dan Mempelajari Bahasa Asing.</p>
+                <p>Halo! Perkenalkan, Nama saya Muhamad Fatur Rahman, biasa dipanggil Fatur.</p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn-primary">Explore Work &rarr;</a>
-                    <a href="#contacts" class="btn-outline">
-                        <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                        Contact Me
-                    </a>
+                    <!-- Tombol Baru: Membuka Pop-up About Portfolio -->
+                    <button id="about-portfolio-btn" class="btn-outline">
+                        <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                        About Portfolio
+                    </button>
                 </div>
                 <div class="connect-box">
                     <span>CONNECT</span>
@@ -72,7 +70,7 @@
             
             <div class="hero-image-container">
                 <div class="profile-card">
-                    <img src="images/profile.jpg" alt="Fatur Photo" class="profile-img" onerror="this.style.display='none';">
+                    <img src="assets/profile/profile.jpg" alt="Fatur Photo" class="profile-img" onerror="this.style.display='none';">
                 </div>
                 <div class="badges-stack">
                     <div class="badge-card">
@@ -106,7 +104,7 @@
         </div>
         <div class="about-grid">
             <div class="about-img-box">
-                <img src="images/about_profile.jpg" alt="About Fatur" class="about-img" onerror="this.style.display='none';">
+                <img src="assets/profile/about_profile.jpg" alt="About Fatur" class="about-img" onerror="this.style.display='none';">
             </div>
             <div class="about-text-boxes">
                 <div class="card">
@@ -197,7 +195,7 @@
         </div>
     </div>
 
-    <!-- Work Experience Section (Zig-Zag dengan Garis Merambat) -->
+    <!-- Work Experience Section -->
     <section id="experience" class="section reveal">
         <div class="section-header">
             <h2 class="typewriter-title" data-title="Work Experience"></h2>
@@ -207,10 +205,9 @@
             <div class="timeline-line"></div>
             <div class="timeline-progress-line" id="timeline-progress"></div>
             
-            <!-- Item 1 (Kiri) -->
             <div class="timeline-row left">
                 <div class="timeline-content card">
-                    <span class="year">2025 - Present</span>
+                    <span class="year">2026 - Present</span>
                     <h3>Web Development & Portfolio Creator</h3>
                     <p class="company">Independent / School Projects</p>
                     <p class="desc">Mengembangkan berbagai proyek halaman web statis maupun interaktif secara mandiri dan kolaboratif, menerapkan praktik clean code dan responsive design.</p>
@@ -221,70 +218,82 @@
                 <div class="timeline-dot"></div>
             </div>
 
-            <!-- Item 2 (Kanan) -->
             <div class="timeline-row right">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content card">
-                    <span class="year">2024 - Present</span>
+                    <span class="year">2025 - Present</span>
                     <h3>Android Custom ROM Porter & Enthusiast</h3>
                     <p class="company">Open Source Community</p>
-                    <p class="desc">Aktif melakukan porting system image (OEM ROM), modifikasi sistem operasi seluler, serta mendalami pemecahan masalah perangkat Android.</p>
+                    <p class="desc">Aktif melakukan porting OEM ROM pada perangkat Infinix, aktif dalam Komunitas Developer Android di Telegram dan GitHub, serta gemar membuat ShellScript dan patching .jar pada suatu framework android menggunakan Smali.</p>
                     <div class="tags">
-                        <span>Android</span><span>ROM Porting</span><span>Debugging</span>
+                        <span>Android</span><span>ROM</span><span>Debugging<span>Magisk Modules</span><span>ShellScript</span><span>Smali</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Selected Works Section -->
-    <section id="projects" class="section reveal">
-        <div class="section-header">
-            <h2 class="typewriter-title" data-title="Selected Works"></h2>
-            <p>Beberapa proyek unggulan yang pernah dikerjakan.</p>
-        </div>
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-img-container">
-                    <img src="images/project1.jpg" alt="Nine Portofolio Preview" class="project-preview-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="project-img-fallback">Nine Portofolio</div>
-                </div>
-                <div class="project-info">
-                    <h3>Nine Portofolio (PPLG)</h3>
-                    <p>Tugas PPLG membuat Portofolio Biodata dan Presentasi. Kelompok berisikan 2 orang, yaitu Fatur dan Deska.</p>
-                    <a href="https://rizzhold.github.io/nine-portofolio" target="_blank">View Project &rarr;</a>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-img-container">
-                    <img src="images/project2.jpg" alt="Dummy Project 2" class="project-preview-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="project-img-fallback">Dummy Project 2</div>
-                </div>
-                <div class="project-info">
-                    <h3>Dummy Project</h3>
-                    <p>Lorem ipsum dolor amet, consectetur adipiscing elit. Sed nisi. Nulla quis sem at nibh.</p>
-                    <a href="#">View Project &rarr;</a>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-img-container">
-                    <img src="images/project3.jpg" alt="Dummy Project 3" class="project-preview-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="project-img-fallback purple">Dummy Project 3</div>
-                </div>
-                <div class="project-info">
-                    <h3>Dummy Project</h3>
-                    <p>Lorem ipsum dolor amet, consectetur adipiscing elit. Duis sagittis ipsum. Praesent mauris.</p>
-                    <a href="#">View Project &rarr;</a>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- Project Section -->
+<section id="projects" class="section reveal">
+    <div class="section-header">
+        <h2 class="typewriter-title" data-title="My Projects"></h2>
+        <p>Beberapa proyek unggulan yang pernah dikerjakan.</p>
+    </div>
+    <div class="projects-grid">
+        <!-- Card di-generate otomatis oleh assets/data/pages/js/projects-render.js dari PROJECT_DATA -->
+    </div>
+</section>
 
-    <!-- Footer / Contacts -->
+    <!-- ABOUT PORTFOLIO MODAL POP-UP -->
+    <div id="portfolio-modal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>About This Portfolio</h3>
+                <button id="modal-close-btn" class="modal-close-btn" aria-label="Tutup">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h4>
+                        <svg class="silhouette-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                        Built With (Tech Stack)
+                    </h4>
+                    <p>Dibangun menggunakan HTML5, CSS3, dan JavaScript (ES6+) murni tanpa framework berat demi performa yang sangat cepat dan ringan.</p>
+                </div>
+                <div class="modal-section">
+                    <h4>
+                        <svg class="silhouette-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        Key Features
+                    </h4>
+                    <ul>
+                        <li><strong>Dynamic Sliding Pill Navbar:</strong> Navigasi melayang interaktif.</li>
+                        <li><strong>Multilingual Loader:</strong> Sapaan pembuka dalam berbagai bahasa.</li>
+                        <li><strong>Dark & Light Theme:</strong> Dilengkapi efek transisi *ripple*.</li>
+                        <li><strong>Scroll Reveal & Blur:</strong> Transisi kemunculan elemen yang halus.</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h4>
+                        <svg class="silhouette-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        Changelog & Updates
+                    </h4>
+                    <p><strong>v2.2:</strong> Membersihkan custom cursor, merombak tombol aksi, dan mencopot menu kontak atas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      <!-- Footer / Contacts -->
     <footer id="contacts" class="reveal">
         <p>Email: mhmdfaturrhmn18@gmail.com</p>
         <p style="margin-top: 8px;">&copy; 2026 rizzhold. All rights reserved.</p>
     </footer>
+
+    <!-- Data & Render Project (My Projects) -->
+    <script src="assets/data/pages/js/projects-data.js"></script>
+    <script src="pages/projects/nine-portfolio.js"></script>
+    <script src="pages/projects/smk-fiktif.js"></script>
+    <script src="pages/projects/dummy-project.js"></script>
+    <script src="assets/data/pages/js/projects-render.js"></script>
 
     <script src="script.js"></script>
 </body>

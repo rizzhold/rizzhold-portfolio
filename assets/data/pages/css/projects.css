@@ -1,0 +1,266 @@
+/* ===== Projects Grid ===== */
+.projects-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+@media(min-width: 768px) { .projects-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* ===== Project Card (base) ===== */
+.project-card { 
+    background: var(--card-bg); 
+    border: 1px solid var(--border-color); 
+    border-radius: 20px; 
+    overflow: hidden; 
+    display: flex; 
+    flex-direction: column; 
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+.project-card:hover { 
+    transform: translateY(-8px); 
+    box-shadow: var(--shadow-lg);
+}
+
+.project-info { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
+.project-info h3 { font-size: 0.95rem; margin-bottom: 6px; font-weight: 700; color: var(--text-color); }
+.project-info p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; flex-grow: 1; }
+.project-info a { font-size: 0.75rem; font-weight: 700; text-decoration: none; color: var(--text-color); text-transform: uppercase; }
+
+/* ===== Project Image ===== */
+.project-img-container {
+    height: 160px;
+    background: var(--outline-border);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.project-preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.project-img-fallback {
+    position: absolute;
+    inset: 0;
+    background: var(--outline-border);
+    color: var(--card-bg);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+.project-img-fallback.purple {
+    background: #581c87;
+    color: #e9d5ff;
+}
+
+/* ========================================== */
+/* STYLING KARTU PROYEK INTERAKTIF (VIEW MORE) */
+/* ========================================== */
+.project-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    min-height: 420px;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Tampilan Depan (Normal) */
+.project-front {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.project-card.active-detail .project-front {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    pointer-events: none;
+}
+
+/* Area Tombol More */
+.project-action-area {
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 12px;
+}
+
+.view-more-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.view-more-btn:hover {
+    opacity: 0.7;
+    transform: translateX(4px);
+}
+
+/* Tampilan Belakang (Detail Saat Dibuka) */
+.project-back {
+    position: absolute;
+    inset: 0;
+    background: var(--card-bg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.95);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    z-index: 5;
+}
+
+.project-card.active-detail .project-back {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.project-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+.project-back-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+    overflow-y: auto;
+    max-height: 240px;
+    padding-right: 4px;
+}
+
+.proj-created {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.proj-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.proj-tech {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+.proj-tech strong, .proj-features strong {
+    color: var(--text-color);
+}
+
+.proj-features {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.proj-features ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.proj-features li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.proj-features .silhouette-icon {
+    color: var(--text-color);
+}
+
+/* Tombol Aksi di Bagian Detail (Repository & Launch) */
+.project-back-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 12px;
+}
+
+.project-back-actions .repo-btn,
+.project-back-actions .launch-btn {
+    flex: 1;
+    text-align: center;
+    padding: 10px 12px;
+    font-size: 0.75rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-decoration: none;
+}
+
+/* ===== More Button (adapted from CSS Buttons - Explore) ===== */
+.more-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.more-btn svg {
+    position: absolute;
+    width: 16px;
+    fill: var(--bg-color);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.more-btn .arr-1 { right: 14px; }
+.more-btn .arr-2 { left: -25%; }
+
+.more-btn .text {
+    position: relative;
+    z-index: 1;
+    transform: translateX(-8px);
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.more-btn:hover .arr-1 { right: -25%; }
+.more-btn:hover .arr-2 { left: 14px; }
+.more-btn:hover .text { transform: translateX(8px); }
+
+.more-btn:active { scale: 0.95; }
