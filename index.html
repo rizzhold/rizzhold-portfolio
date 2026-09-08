@@ -11,6 +11,8 @@
     
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="assets/data/pages/css/projects.css">
+    <link rel="stylesheet" href="assets/data/pages/css/experience.css">
+    <link rel="stylesheet" href="assets/data/pages/css/changelog.css">
 </head>
 <body>
 
@@ -204,43 +206,40 @@
         <div class="timeline-zigzag" id="timeline-container">
             <div class="timeline-line"></div>
             <div class="timeline-progress-line" id="timeline-progress"></div>
-            
-            <div class="timeline-row left">
-                <div class="timeline-content card">
-                    <span class="year">2026 - Present</span>
-                    <h3>Web Development & Portfolio Creator</h3>
-                    <p class="company">Independent / School Projects</p>
-                    <p class="desc">Mengembangkan berbagai proyek halaman web statis maupun interaktif secara mandiri dan kolaboratif, menerapkan praktik clean code dan responsive design.</p>
-                    <div class="tags">
-                        <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Git</span>
-                    </div>
-                </div>
-                <div class="timeline-dot"></div>
-            </div>
-
-            <div class="timeline-row right">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content card">
-                    <span class="year">2025 - Present</span>
-                    <h3>Android Custom ROM Porter & Enthusiast</h3>
-                    <p class="company">Open Source Community</p>
-                    <p class="desc">Aktif melakukan porting OEM ROM pada perangkat Infinix, aktif dalam Komunitas Developer Android di Telegram dan GitHub, serta gemar membuat ShellScript dan patching .jar pada suatu framework android menggunakan Smali.</p>
-                    <div class="tags">
-                        <span>Android</span><span>ROM</span><span>Debugging<span>Magisk Modules</span><span>ShellScript</span><span>Smali</span>
-                    </div>
-                </div>
+            <div id="timelineRows">
+                <!-- Baris timeline di-generate otomatis oleh assets/data/pages/js/experience-render.js dari EXPERIENCE_DATA -->
             </div>
         </div>
     </section>
 
 <!-- Project Section -->
 <section id="projects" class="section reveal">
-    <div class="section-header">
-        <h2 class="typewriter-title" data-title="My Projects"></h2>
-        <p>Beberapa proyek unggulan yang pernah dikerjakan.</p>
+    <!-- ==== Preview: nampilin project terbatas ==== -->
+    <div class="projects-view projects-view-preview" id="projectsPreviewView">
+        <div class="section-header">
+            <h2 class="typewriter-title" data-title="My Projects"></h2>
+            <p>Beberapa proyek unggulan yang pernah dikerjakan.</p>
+        </div>
+        <div class="projects-grid" id="projectsPreviewGrid">
+            <!-- Card preview (dibatasi) di-generate otomatis oleh assets/data/pages/js/projects-render.js -->
+        </div>
+        <div class="projects-view-more-area">
+            <button type="button" class="view-all-btn" id="viewMoreProjectsBtn">View More Projects</button>
+        </div>
     </div>
-    <div class="projects-grid">
-        <!-- Card di-generate otomatis oleh assets/data/pages/js/projects-render.js dari PROJECT_DATA -->
+
+    <!-- ==== Full: nampilin semua project ==== -->
+    <div class="projects-view projects-view-full" id="projectsFullView" hidden>
+        <div class="section-header">
+            <h2>All Projects</h2>
+            <p>Semua proyek yang pernah dikerjakan.</p>
+        </div>
+        <div class="projects-grid" id="projectsFullGrid">
+            <!-- Semua card di-generate otomatis oleh assets/data/pages/js/projects-render.js -->
+        </div>
+        <div class="projects-view-more-area">
+            <button type="button" class="view-all-btn" id="backToProjectsBtn">Back</button>
+        </div>
     </div>
 </section>
 
@@ -248,10 +247,17 @@
     <div id="portfolio-modal" class="modal-overlay">
         <div class="modal-container">
             <div class="modal-header">
-                <h3>About This Portfolio</h3>
                 <button id="modal-close-btn" class="modal-close-btn" aria-label="Tutup">&times;</button>
+                <h3>ABOUT PORTFOLIO</h3>
             </div>
             <div class="modal-body">
+                <div class="modal-section">
+                    <h4>
+                        <svg class="silhouette-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                        Fungsi Website
+                    </h4>
+                    <p>Website ini dibuat sebagai media portofolio pribadi untuk mendokumentasikan proyek-proyek yang pernah dikerjakan, baik di bidang web development maupun Android Custom ROM porting, sekaligus menjadi sarana belajar dan bereksperimen dengan teknologi baru.</p>
+                </div>
                 <div class="modal-section">
                     <h4>
                         <svg class="silhouette-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
@@ -276,7 +282,9 @@
                         <svg class="silhouette-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                         Changelog & Updates
                     </h4>
-                    <p><strong>v2.2:</strong> Membersihkan custom cursor, merombak tombol aksi, dan mencopot menu kontak atas.</p>
+                    <div class="changelog-dock" id="changelogDock">
+                        <!-- Card di-generate otomatis oleh assets/data/pages/js/changelog-render.js dari CHANGELOG_DATA -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -284,9 +292,22 @@
 
       <!-- Footer / Contacts -->
     <footer id="contacts" class="reveal">
-        <p>Email: mhmdfaturrhmn18@gmail.com</p>
+        <p>GitHub: rizzhold:</p>
         <p style="margin-top: 8px;">&copy; 2026 rizzhold. All rights reserved.</p>
     </footer>
+
+    <!-- Data & Render Changelog (About Portfolio Modal) -->
+    <script src="assets/data/pages/js/changelog-data.js"></script>
+    <script src="pages/changelog/v1-0.js"></script>
+    <script src="pages/changelog/v1-1.js"></script>
+    <script src="pages/changelog/v2-0.js"></script>
+    <script src="assets/data/pages/js/changelog-render.js"></script>
+
+    <!-- Data & Render Work Experience -->
+    <script src="assets/data/pages/js/experience-data.js"></script>
+    <script src="pages/experience/web-dev-portfolio.js"></script>
+    <script src="pages/experience/android-rom-porter.js"></script>
+    <script src="assets/data/pages/js/experience-render.js"></script>
 
     <!-- Data & Render Project (My Projects) -->
     <script src="assets/data/pages/js/projects-data.js"></script>
