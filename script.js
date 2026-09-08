@@ -47,6 +47,7 @@ window.addEventListener('load', () => {
 // Dynamic Sliding Pill Navbar Indicator
 const navItems = document.querySelectorAll('.nav-item');
 const navDock = document.getElementById('nav-dock');
+const navLinksContainer = document.getElementById('nav-links-container');
 
 function updateDockPosition(activeElement) {
     if (!activeElement || !navDock) return;
@@ -62,13 +63,132 @@ window.addEventListener('DOMContentLoaded', () => {
     updateDockPosition(activeItem);
 });
 
+let dragMoved = false; // penanda gesture terakhir itu drag dock, bukan klik biasa
+
 navItems.forEach(item => {
-    item.addEventListener('click', () => {
+    item.addEventListener('click', (e) => {
+        if (dragMoved) {
+            // Gesture terakhir adalah drag dock (bukan klik biasa) -> abaikan,
+            // karena state active & scroll udah ke-handle sama logic drag di bawah.
+            dragMoved = false;
+            e.preventDefault();
+            return;
+        }
         navItems.forEach(nav => nav.classList.remove('active'));
         item.classList.add('active');
         updateDockPosition(item);
     });
 });
+
+// ==========================================================
+// FITUR: Drag/Geser Dock Navigasi (ala Liquid Glass Apple)
+// Dock hitam bisa disentuh & digeser, halaman ikut pindah
+// section mengikuti item terdekat yang dilewati dock saat drag.
+// ==========================================================
+if (navDock && navLinksContainer) {
+    let isDragging = false;
+    let dockStartX = 0;
+    let dockStartLeft = 0;
+    let dragWidth = 0;
+    let lastActiveIndex = -1;
+
+    function getNavItemPositions() {
+        return Array.from(navItems).map((item, index) => ({
+            item,
+            index,
+            left: item.offsetLeft,
+            width: item.offsetWidth,
+            center: item.offsetLeft + item.offsetWidth / 2
+        }));
+    }
+
+    function getClosestNavItem(dockCenterX, positions) {
+        let closest = positions[0];
+        let minDist = Infinity;
+        positions.forEach(pos => {
+            const dist = Math.abs(pos.center - dockCenterX);
+            if (dist < minDist) {
+                minDist = dist;
+                closest = pos;
+            }
+        });
+        return closest;
+    }
+
+    function setActiveNavItemWhileDragging(targetItem) {
+        navItems.forEach(nav => nav.classList.remove('active'));
+        targetItem.classList.add('active');
+        const targetId = targetItem.getAttribute('data-target');
+        const section = document.getElementById(targetId);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    navLinksContainer.addEventListener('pointerdown', (e) => {
+        const target = e.target.closest('.nav-item');
+        // Cuma mulai drag kalau yang disentuh itu item yang LAGI AKTIF
+        // (area itu yang secara visual ditempati dock hitam).
+        if (!target || !target.classList.contains('active')) return;
+
+        isDragging = true;
+        dragMoved = false;
+        navDock.classList.add('dragging');
+        navLinksContainer.classList.add('dock-dragging');
+        navLinksContainer.setPointerCapture(e.pointerId);
+
+        dockStartX = e.clientX;
+        dockStartLeft = navDock.offsetLeft;
+        dragWidth = navDock.offsetWidth;
+
+        const positions = getNavItemPositions();
+        lastActiveIndex = positions.findIndex(p => p.item === target);
+
+        e.preventDefault();
+    });
+
+    navLinksContainer.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+
+        const deltaX = e.clientX - dockStartX;
+        if (Math.abs(deltaX) > 3) {
+            dragMoved = true;
+        }
+
+        const containerWidth = navLinksContainer.offsetWidth;
+        let newLeft = dockStartLeft + deltaX;
+        newLeft = Math.max(0, Math.min(newLeft, containerWidth - dragWidth));
+
+        navDock.style.transform = `translateX(${newLeft}px)`;
+
+        const positions = getNavItemPositions();
+        const dockCenterX = newLeft + dragWidth / 2;
+        const closest = getClosestNavItem(dockCenterX, positions);
+
+        // Cuma ganti section aktif & scroll kalau item terdekat BERUBAH
+        // (biar gak scroll berkali-kali tiap pixel gerak).
+        if (closest.index !== lastActiveIndex) {
+            lastActiveIndex = closest.index;
+            setActiveNavItemWhileDragging(closest.item);
+        }
+    });
+
+    function endDockDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+        navDock.classList.remove('dragging');
+        navLinksContainer.classList.remove('dock-dragging');
+
+        // Snap dock pas ke posisi & lebar item aktif terakhir
+        const activeItem = document.querySelector('.nav-item.active');
+        if (activeItem) {
+            updateDockPosition(activeItem);
+        }
+    }
+
+    navLinksContainer.addEventListener('pointerup', endDockDrag);
+    navLinksContainer.addEventListener('pointercancel', endDockDrag);
+}
 
 // Penanganan perpindahan halaman aktif berdasarkan Scroll (Tanpa Contacts)
 const sections = document.querySelectorAll('#home, #about, #skills, #experience, #projects');
@@ -205,18 +325,46 @@ function deletingEffect() {
 setTimeout(typingEffect, 3300);
 
 // Efek Ketik Judul Section Saat Masuk Layar
+// (pakai sistem token per-elemen biar gak race condition kalau scroll bolak-balik cepat:
+//  setiap sesi ngetik baru otomatis membatalkan sesi lama yang masih berjalan)
+const typewriterState = new WeakMap(); // element -> { token, timeoutId }
+
+function getTypewriterState(element) {
+    let state = typewriterState.get(element);
+    if (!state) {
+        state = { token: 0, timeoutId: null };
+        typewriterState.set(element, state);
+    }
+    return state;
+}
+
+function stopTypewriter(element) {
+    const state = getTypewriterState(element);
+    clearTimeout(state.timeoutId);
+    state.token++; // sesi lama jadi tidak valid, loop typeChar yang masih jalan akan berhenti sendiri
+}
+
 function triggerTypewriter(element) {
     if (element.classList.contains('typed')) return;
     element.classList.add('typed');
+
+    const state = getTypewriterState(element);
+    clearTimeout(state.timeoutId);
+    state.token++;
+    const myToken = state.token;
+
     const textToType = element.getAttribute('data-title');
     let charIndex = 0;
     element.textContent = "";
 
     function typeChar() {
+        // Kalau sudah ada sesi ngetik baru yang mulai (token berubah), loop ini berhenti
+        if (state.token !== myToken) return;
+
         if (charIndex < textToType.length) {
             element.textContent += textToType.charAt(charIndex);
             charIndex++;
-            setTimeout(typeChar, 70);
+            state.timeoutId = setTimeout(typeChar, 70);
         }
     }
     typeChar();
@@ -241,6 +389,7 @@ const observer = new IntersectionObserver((entries) => {
             entry.target.classList.remove('active');
             const titleEl = entry.target.querySelector('.typewriter-title');
             if (titleEl) {
+                stopTypewriter(titleEl);
                 titleEl.classList.remove('typed');
                 titleEl.textContent = "";
             }
@@ -304,12 +453,8 @@ if (aboutPortfolioBtn && portfolioModal && modalCloseBtn) {
         portfolioModal.classList.remove('active');
     });
 
-    // Tutup modal jika mengklik area luar kontainer (overlay)
-    portfolioModal.addEventListener('click', (e) => {
-        if (e.target === portfolioModal) {
-            portfolioModal.classList.remove('active');
-        }
-    });
+    // Catatan: modal ini sengaja TIDAK menutup saat area luar (overlay) diklik.
+    // Menutup modal hanya bisa lewat tombol close (X).
 }
 // ========================================================= */
 // LOGIKA INTERAKTIF KARTU PROYEK (VIEW MORE) telah dipindahkan */
