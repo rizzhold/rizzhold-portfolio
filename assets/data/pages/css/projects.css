@@ -2,6 +2,41 @@
 .projects-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
 @media(min-width: 768px) { .projects-grid { grid-template-columns: repeat(3, 1fr); } }
 
+/* ===== Projects View (Preview vs Full) ===== */
+.projects-view[hidden] {
+    display: none;
+}
+
+.projects-view-more-area {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+/* Tombol "View More Projects" & "Back" - outline pill, fill on hover/press */
+.view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 32px;
+    border: 2px solid var(--text-color);
+    border-radius: 100px;
+    background: transparent;
+    color: var(--text-color);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.view-all-btn:hover,
+.view-all-btn:active {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+}
+
 /* ===== Project Card (base) ===== */
 .project-card { 
     background: var(--card-bg); 
