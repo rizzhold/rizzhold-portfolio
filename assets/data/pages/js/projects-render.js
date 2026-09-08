@@ -1,10 +1,15 @@
-// Render kartu project dari PROJECT_DATA ke dalam .projects-grid,
-// lalu jalankan logic interaktif "More" / Close (menggantikan logic lama di script.js
-// yang sebelumnya nge-bind langsung ke card statis di HTML).
+// Render kartu project dari PROJECT_DATA ke dalam grid preview & grid full,
+// lalu jalankan logic interaktif "More" / Close per card (menggantikan logic lama
+// di script.js yang sebelumnya nge-bind langsung ke card statis di HTML),
+// plus logic toggle "View More Projects" <-> "Back".
 
 document.addEventListener('DOMContentLoaded', () => {
-    const grid = document.querySelector('.projects-grid');
-    if (!grid || typeof PROJECT_DATA === 'undefined') return;
+    const previewGrid = document.getElementById('projectsPreviewGrid');
+    const fullGrid = document.getElementById('projectsFullGrid');
+    if (!previewGrid || !fullGrid || typeof PROJECT_DATA === 'undefined') return;
+
+    // Jumlah project yang ditampilkan di preview sebelum "View More Projects" diklik.
+    const PREVIEW_LIMIT = 3;
 
     const arrowSvg = (arrClass) => `
         <svg xmlns="http://www.w3.org/2000/svg" class="${arrClass}" viewBox="0 0 24 24">
@@ -70,46 +75,81 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>`;
     }
 
-    grid.innerHTML = PROJECT_DATA.map(renderCard).join('\n');
-
     // ========================================== */
     // LOGIKA INTERAKTIF KARTU PROYEK (VIEW MORE)  */
     // (dipindahkan dari script.js karena card sekarang di-generate lewat JS,
-    //  bukan statis di HTML)
+    //  bukan statis di HTML). Dibikin fungsi supaya bisa dipakai untuk
+    //  grid preview maupun grid full secara independen.
     // ========================================== */
-    const projectCards = grid.querySelectorAll('.project-card');
+    function bindCardInteractions(gridEl) {
+        const projectCards = gridEl.querySelectorAll('.project-card');
 
-    projectCards.forEach(card => {
-        const viewMoreBtn = card.querySelector('.view-more-btn');
-        const closeBtn = card.querySelector('.project-close-btn');
+        projectCards.forEach(card => {
+            const viewMoreBtn = card.querySelector('.view-more-btn');
+            const closeBtn = card.querySelector('.project-close-btn');
 
-        if (viewMoreBtn) {
-            viewMoreBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
+            if (viewMoreBtn) {
+                viewMoreBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
 
-                projectCards.forEach(otherCard => {
-                    if (otherCard !== card) {
-                        otherCard.classList.remove('active-detail');
-                    }
+                    projectCards.forEach(otherCard => {
+                        if (otherCard !== card) {
+                            otherCard.classList.remove('active-detail');
+                        }
+                    });
+
+                    card.classList.toggle('active-detail');
                 });
+            }
 
-                card.classList.toggle('active-detail');
-            });
-        }
+            if (closeBtn) {
+                closeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    card.classList.remove('active-detail');
+                });
+            }
+        });
 
-        if (closeBtn) {
-            closeBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                card.classList.remove('active-detail');
-            });
-        }
-    });
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.project-card')) {
+                projectCards.forEach(card => {
+                    card.classList.remove('active-detail');
+                });
+            }
+        });
+    }
 
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.project-card')) {
-            projectCards.forEach(card => {
-                card.classList.remove('active-detail');
-            });
-        }
-    });
+    // Render preview (dibatasi PREVIEW_LIMIT) dan full (semua project)
+    previewGrid.innerHTML = PROJECT_DATA.slice(0, PREVIEW_LIMIT).map(renderCard).join('\n');
+    fullGrid.innerHTML = PROJECT_DATA.map(renderCard).join('\n');
+
+    bindCardInteractions(previewGrid);
+    bindCardInteractions(fullGrid);
+
+    // ========================================== */
+    // TOGGLE "VIEW MORE PROJECTS" <-> "BACK"      */
+    // ========================================== */
+    const previewView = document.getElementById('projectsPreviewView');
+    const fullView = document.getElementById('projectsFullView');
+    const viewMoreBtn = document.getElementById('viewMoreProjectsBtn');
+    const backBtn = document.getElementById('backToProjectsBtn');
+    const projectsSection = document.getElementById('projects');
+
+    if (viewMoreBtn && backBtn && previewView && fullView) {
+        viewMoreBtn.addEventListener('click', () => {
+            previewView.hidden = true;
+            fullView.hidden = false;
+            if (projectsSection) {
+                projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+
+        backBtn.addEventListener('click', () => {
+            fullView.hidden = true;
+            previewView.hidden = false;
+            if (projectsSection) {
+                projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    }
 });
