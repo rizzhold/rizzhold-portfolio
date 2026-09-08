@@ -4,7 +4,7 @@ PROJECT_DATA.push({
   image: "images/project3.jpg",
   imageAlt: "Dummy Project 3",
   fallbackLabel: "Dummy Project 3",
-  fallbackColor: "purple",
+  fallbackColor: "default",
   shortDesc: "Lorem ipsum dolor amet, consectetur adipiscing elit. Duis sagittis ipsum. Praesent mauris.",
   fullDesc: "Lorem ipsum, dolor amet.",
   createdAt: "2025-12-20",
